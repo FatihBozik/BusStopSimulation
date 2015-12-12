@@ -5,4 +5,5 @@
     <string name="button_next">İleri</string>
     <string name="imaginary_time">SA : AT</string>
     <string name="background_main">Otobüs Durağı Simülasyonu</string>
+    <string name="parameter_info">Başlangıç parametreleri boş bırakılamaz</string>
 </resources>

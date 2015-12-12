@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_weight="0.5"
+                android:hint=""
                 android:inputType="number"
                 android:maxLength="1" />
         </TableRow>
