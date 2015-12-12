@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">BusStopSimulation</string>
+    <string name="app_name">Otobüs Durağı Simulasyonu</string>
     <string name="max_bus_count">Azami Otobüs Sayısı</string>
     <string name="bus_stop_count">Otobüs Durağı Sayısı</string>
-    <string name="button_continue">Devam</string>
+    <string name="button_next">İleri</string>
     <string name="imaginary_time">SA : AT</string>
+    <string name="background_main">Otobüs Durağı Simülasyonu</string>
 </resources>
