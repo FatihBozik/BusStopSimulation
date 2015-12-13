@@ -2,6 +2,7 @@ package com.fatihbozik.busstopsimulation;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -15,7 +16,11 @@ public class MyService extends Service {
     int simulationTime;
     String currentTime;
     int[] distances;
+    int maxBusCount;
     int minutes;
+    int[] busStartTime;
+    int[] kacDakika;
+    int count;
 
     @Nullable
     @Override
@@ -34,20 +39,32 @@ public class MyService extends Service {
 
         simulationTime = intent.getIntExtra("simulationTime", 0);
         distances = intent.getIntArrayExtra("distances");
+        maxBusCount = intent.getIntExtra("maxBusCount", 1);
         currentTime = getCurrentTime("HH:mm", new Locale("tr"));
         minutes = convertTimeToMinutes(currentTime);
+        kacDakika = new int[maxBusCount];
+
+        busStartTime = new int[maxBusCount];
+        Bundle extras = intent.getExtras();
+        for (int i = 0; i < maxBusCount; i++) {
+            busStartTime[i] = extras.getInt("Otobüs" + (i + 1));
+            Log.d("MyService", "" + busStartTime[i]);
+        }
 
         Thread triggerService = new Thread(new Runnable() {
             public void run() {
                 for (int i = 1; (i <= simulationTime) && isRunning; i++) {
                     try {
                         Thread.sleep(1000);
-                        //distances = updateDistances(distances);
                         currentTime = convertMinutesToTime(++minutes);
+                        count++;
+                        fun(busStartTime, count);
                         Intent myResponse = new Intent("fatihbozik.action.MYSERVICE");
                         myResponse.putExtra("serviceData", currentTime);
                         myResponse.putExtra("distances", distances);
+                        myResponse.putExtra("kacDakika", kacDakika);
                         sendBroadcast(myResponse);
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -88,5 +105,15 @@ public class MyService extends Service {
             distances[i] -= 50;
         }
         return distances;
+    }
+
+    private void fun(int[] busStartTime, int count) {
+        for(int i = 0; i < busStartTime.length; i++) {
+            if(busStartTime[i] - count > 0) {
+                kacDakika[i] = busStartTime[i] - count;
+            } else {
+                kacDakika[i] = -99;
+            }
+        }
     }
 }

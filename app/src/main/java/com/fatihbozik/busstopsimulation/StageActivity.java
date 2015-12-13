@@ -10,10 +10,10 @@ import android.widget.GridView;
 import java.util.Random;
 
 public class StageActivity extends AppCompatActivity {
-    //    private TextView imaginaryClock;
     int busStopsDistances[];
     int remainTimes[]; // Otobüslerin kaç saniye sonra duraklara varacağını tutacak.
     int simulationTime = 0;  // Simulasyon kaç saniye sürecek. Servis o kadar çalıştırılacak.
+    int enBuyuk = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +24,14 @@ public class StageActivity extends AppCompatActivity {
         busStopsDistances = distanceBetweenStops(busStopCount - 1);
 
         final int maxBusCount = getIntent().getIntExtra("maxBusCount", 1);
+        int[] x = returnBusStartTime(maxBusCount);
+        final Bundle extras = new Bundle();
+        for(int i = 0; i < maxBusCount; i++) {
+            extras.putInt("Otobüs" + (i+1), x[i]);
+        }
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new TextAdapter(this, busStopsDistances));
+        gridview.setAdapter(new TextAdapter(this, busStopsDistances, 1));
 
         for (int time : remainTimes) simulationTime += time;
 
@@ -37,8 +42,9 @@ public class StageActivity extends AppCompatActivity {
                 Intent driverActivity = new Intent(StageActivity.this, ServiceDriver.class);
                 driverActivity.putExtra("busStopCount", busStopCount);
                 driverActivity.putExtra("maxBusCount", maxBusCount);
-                driverActivity.putExtra("simulationTime", simulationTime);
+                driverActivity.putExtra("simulationTime", simulationTime + enBuyuk);
                 driverActivity.putExtra("distances", busStopsDistances);
+                driverActivity.putExtras(extras);
                 startActivity(driverActivity);
             }
         });
@@ -46,7 +52,9 @@ public class StageActivity extends AppCompatActivity {
 
     int[] distanceBetweenStops(int howMany) {
         int[] dizi = generateRandomNumber(howMany, 5);
-        remainTimes = dizi;
+        remainTimes = new int[dizi.length];
+
+        System.arraycopy(dizi, 0, remainTimes, 0, dizi.length);
 
         for (int i = 0; i < dizi.length; i++) {
             dizi[i] *= 50;
@@ -60,6 +68,19 @@ public class StageActivity extends AppCompatActivity {
         int[] dizi = new int[times];
         for (int i = 0; i < times; i++) {
             dizi[i] = rnd.nextInt(number) + 1; // [1, n] arası rastgele bir sayı üret.
+        }
+        return dizi;
+    }
+
+    private int[] returnBusStartTime(int maxBusCount) {
+        Random rnd = new Random();
+        int[] dizi = new int[maxBusCount];
+        for(int i = 0; i < maxBusCount; i++) {
+            dizi[i] = rnd.nextInt(5);
+
+            if(dizi[i] > enBuyuk) {
+                enBuyuk = dizi[i];
+            }
         }
         return dizi;
     }

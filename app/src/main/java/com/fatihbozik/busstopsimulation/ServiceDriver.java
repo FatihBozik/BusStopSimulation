@@ -26,6 +26,7 @@ public class ServiceDriver extends AppCompatActivity {
     private ComponentName service;
     private TextView txtMessage;
     private BroadcastReceiver receiver;
+    private int[] kacDakika;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,9 @@ public class ServiceDriver extends AppCompatActivity {
         intentMyService = new Intent(this, MyService.class);
         intentMyService.putExtra("simulationTime", getIntent().getIntExtra("simulationTime", 0));
         intentMyService.putExtra("distances", getIntent().getIntArrayExtra("distances"));
+        intentMyService.putExtra("maxBusCount", getIntent().getIntExtra("maxBusCount", 1));
+        Bundle extras = getIntent().getExtras();
+        intentMyService.putExtras(extras);
         service = startService(intentMyService);
 
         txtMessage = (TextView) findViewById(R.id.txt_message);
@@ -89,8 +93,15 @@ public class ServiceDriver extends AppCompatActivity {
         @Override
         public void onReceive(Context localContext, Intent callerIntent) {
             String serviceData = callerIntent.getStringExtra("serviceData");
+            kacDakika = callerIntent.getIntArrayExtra("kacDakika");
             Log.e("ServiceDriver", serviceData);
             txtMessage.setText(serviceData);
+
+            for(int x : kacDakika) {
+                if(x != -99) {
+                    Log.d("Fatih", (x) + " dakika kaldı : " + serviceData);
+                }
+            }
         }
     }
 

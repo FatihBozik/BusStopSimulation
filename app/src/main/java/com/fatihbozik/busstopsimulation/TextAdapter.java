@@ -10,10 +10,12 @@ import android.widget.TextView;
 public class TextAdapter extends BaseAdapter {
     private Context mContext;
     private int[] busStopsDistances;
+    private int type;
 
-    public TextAdapter(Context c, int[] busStopsDistances) {
+    public TextAdapter(Context c, int[] busStopsDistances, int type) {
         mContext = c;
         this.busStopsDistances = busStopsDistances;
+        this.type = type;
     }
 
     public int getCount() {
@@ -37,11 +39,18 @@ public class TextAdapter extends BaseAdapter {
         if (convertView == null) {
             // get layout from row_gridview.xml
             gridViewItem = inflater.inflate(R.layout.row_gridview, null);
-
             txt1 = (TextView) gridViewItem.findViewById(R.id.txt1);
-            txt1.setText(String.format("%d.Durak ile %d.Durak arası", position + 1, position + 2));
             txt2 = (TextView) gridViewItem.findViewById(R.id.txt2);
-            txt2.setText(busStopsDistances[position] + " m");
+            if (type == 1) {
+                txt1.setText(String.format("%d.Durak ile %d.Durak arası", position + 1, position + 2));
+                txt2.setText(busStopsDistances[position] + " m");
+            } else if (type == 0) {
+                txt1.setText("Otobüs" + (position + 1));
+                txt2.setText("Simulasyon başladıktan\n" + busStopsDistances[position] + " dk sonra");
+            } else {
+
+            }
+
         } else {
             gridViewItem = convertView;
         }
