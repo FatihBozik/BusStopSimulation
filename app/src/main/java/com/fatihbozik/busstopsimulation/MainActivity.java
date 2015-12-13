@@ -30,10 +30,10 @@ public class MainActivity extends AppCompatActivity {
                     maxBusCount = Integer.parseInt(txtMaxBusCount.getText().toString());
                     busStopCount = Integer.parseInt(txtBusStopCount.getText().toString());
 
-                    Intent stopIntent = new Intent(MainActivity.this, StageActivity.class);
-                    stopIntent.putExtra("maxBusCount", maxBusCount);
-                    stopIntent.putExtra("busStopCount", busStopCount);
-                    startActivity(stopIntent);
+                    Intent stageIntent = new Intent(MainActivity.this, StageActivity.class);
+                    stageIntent.putExtra("maxBusCount", maxBusCount);
+                    stageIntent.putExtra("busStopCount", busStopCount);
+                    startActivity(stageIntent);
                 } else {
                     Toast.makeText(MainActivity.this, R.string.parameter_info, Toast.LENGTH_SHORT).show();
                 }
