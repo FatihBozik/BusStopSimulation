@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import java.util.Random;
 
@@ -22,7 +20,7 @@ public class StageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stage);
 
-        int busStopCount = getIntent().getIntExtra("busStopCount", 5);
+        final int busStopCount = getIntent().getIntExtra("busStopCount", 5);
         busStopsDistances = distanceBetweenStops(busStopCount - 1);
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
@@ -30,23 +28,16 @@ public class StageActivity extends AppCompatActivity {
 
         for (int time : remainTimes) simualationTime += time;
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(StageActivity.this, "" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
-
         Button startButton = (Button) findViewById(R.id.simulation_button);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent driverActivity = new Intent(StageActivity.this, ServiceDriver.class);
+                driverActivity.putExtra("busStopCount", busStopCount);
                 driverActivity.putExtra("simulationTime", simualationTime);
                 startActivity(driverActivity);
             }
         });
-
-
     }
 
     int[] distanceBetweenStops(int howMany) {

@@ -39,15 +39,12 @@
             android:id="@+id/gridview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:background="#f1eded"
             android:gravity="center_horizontal"
-            android:numColumns="2"
+            android:numColumns="1"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp" />
-
-
+            android:verticalSpacing="1dp" />
     </LinearLayout>
 
     <Button

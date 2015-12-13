@@ -1,11 +1,10 @@
 package com.fatihbozik.busstopsimulation;
 
 import android.content.Context;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.TextView;
 
 public class TextAdapter extends BaseAdapter {
@@ -18,7 +17,7 @@ public class TextAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return 2 * busStopsDistances.length;
+        return busStopsDistances.length;
     }
 
     public Object getItem(int position) {
@@ -31,25 +30,21 @@ public class TextAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView textView;
-        if (convertView == null) {
-            // if it's not recycled, initialize some attributes
-            textView = new TextView(mContext);
-            GridView.LayoutParams layoutParams =
-                    new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            textView.setLayoutParams(layoutParams);
-        } else {
-            textView = (TextView) convertView;
-        }
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View gridViewItem;
+        TextView txt1, txt2;
 
-        Log.d("Fatih", position + "");
-        if(position % 2 == 0) {
-            String str = String.format("%d.Durak ile %d.Durak arası", (position / 2) + 1, (position / 2) + 2);
-            textView.setText(str);
+        if (convertView == null) {
+            // get layout from row_gridview.xml
+            gridViewItem = inflater.inflate(R.layout.row_gridview, null);
+
+            txt1 = (TextView) gridViewItem.findViewById(R.id.txt1);
+            txt1.setText(String.format("%d.Durak ile %d.Durak arası", position + 1, position + 2));
+            txt2 = (TextView) gridViewItem.findViewById(R.id.txt2);
+            txt2.setText(busStopsDistances[position] + " m");
+        } else {
+            gridViewItem = convertView;
         }
-        else {
-            textView.setText(String.valueOf(busStopsDistances[(position - 1)/2]) + " m");
-        }
-        return textView;
+        return gridViewItem;
     }
 }
