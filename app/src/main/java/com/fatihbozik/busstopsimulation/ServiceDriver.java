@@ -6,12 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
-
-import java.util.Date;
 
 public class ServiceDriver extends AppCompatActivity {
 
@@ -26,7 +23,7 @@ public class ServiceDriver extends AppCompatActivity {
         setContentView(R.layout.activity_service_driver);
 
         intentMyService = new Intent(this, MyService.class);
-        intentMyService.putExtra("simualationTime", getIntent().getIntExtra("simualationTime", 0));
+        intentMyService.putExtra("simulationTime", getIntent().getIntExtra("simulationTime", 0));
         service = startService(intentMyService);
 
         txtMessage = (TextView) findViewById(R.id.txt_message);
@@ -55,9 +52,8 @@ public class ServiceDriver extends AppCompatActivity {
         @Override
         public void onReceive(Context localContext, Intent callerIntent) {
             String serviceData = callerIntent.getStringExtra("serviceData");
-            Log.e("ServiceDriver", serviceData + " -receiving data " + SystemClock.elapsedRealtime());
-            String now = "\n" + serviceData + " --- " + new Date().toLocaleString();
-            txtMessage.append(now);
+            Log.e("ServiceDriver", serviceData);
+            txtMessage.setText(serviceData);
         }
     }
 }

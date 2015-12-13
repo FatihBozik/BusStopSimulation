@@ -14,6 +14,7 @@ public class MyService extends Service {
     boolean isRunning = true;
     int simulationTime;
     String currentTime;
+    int minutes;
 
     @Nullable
     @Override
@@ -30,32 +31,23 @@ public class MyService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e("MyService", "MyService::onStartCommand()");
 
-        simulationTime = intent.getIntExtra("simualationTime", 0);
+        simulationTime = intent.getIntExtra("simulationTime", 0);
+        currentTime = getCurrentTime("HH:mm", new Locale("tr"));
+        minutes = convertTimeToMinutes(currentTime);
 
         Thread triggerService = new Thread(new Runnable() {
-//            long startingTime = System.currentTimeMillis();
-//            long tics = 0;
-
             public void run() {
-
-
-                for(int i = 1; i <= simulationTime; i++) {
-                    currentTime = getCurrentTime("HH:mm", new Locale("tr"));
+                for (int i = 1; (i <= simulationTime) && isRunning; i++) {
+                    try {
+                        Thread.sleep(1000);
+                        currentTime = convertMinutesToTime(++minutes);
+                        Intent myResponse = new Intent("fatihbozik.action.MYSERVICE");
+                        myResponse.putExtra("serviceData", currentTime);
+                        sendBroadcast(myResponse);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-
-
-//                for (int i = 0; (i < 120) & isRunning; i++) {
-//                    try {
-//                        tics = System.currentTimeMillis() - startingTime;
-//                        Intent myResponse = new Intent("fatihbozik.action.MYSERVICE");
-//                        String msg = i + " value: " + tics;
-//                        myResponse.putExtra("serviceData", msg);
-//                        sendBroadcast(myResponse);
-//                        Thread.sleep(1000); //five seconds
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
             }
         });
         triggerService.start();
