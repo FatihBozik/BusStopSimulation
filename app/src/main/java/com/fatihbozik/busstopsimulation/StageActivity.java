@@ -13,7 +13,7 @@ public class StageActivity extends AppCompatActivity {
     //    private TextView imaginaryClock;
     int busStopsDistances[];
     int remainTimes[]; // Otobüslerin kaç saniye sonra duraklara varacağını tutacak.
-    int simualationTime = 0;  // Simulasyon kaç saniye sürecek. Servis o kadar çalıştırılacak.
+    int simulationTime = 0;  // Simulasyon kaç saniye sürecek. Servis o kadar çalıştırılacak.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +23,12 @@ public class StageActivity extends AppCompatActivity {
         final int busStopCount = getIntent().getIntExtra("busStopCount", 5);
         busStopsDistances = distanceBetweenStops(busStopCount - 1);
 
+        final int maxBusCount = getIntent().getIntExtra("maxBusCount", 1);
+
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new TextAdapter(this, busStopsDistances));
 
-        for (int time : remainTimes) simualationTime += time;
+        for (int time : remainTimes) simulationTime += time;
 
         Button startButton = (Button) findViewById(R.id.simulation_button);
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -34,7 +36,9 @@ public class StageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent driverActivity = new Intent(StageActivity.this, ServiceDriver.class);
                 driverActivity.putExtra("busStopCount", busStopCount);
-                driverActivity.putExtra("simulationTime", simualationTime);
+                driverActivity.putExtra("maxBusCount", maxBusCount);
+                driverActivity.putExtra("simulationTime", simulationTime);
+                driverActivity.putExtra("distances", busStopsDistances);
                 startActivity(driverActivity);
             }
         });

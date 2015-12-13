@@ -40,6 +40,7 @@ public class ServiceDriver extends AppCompatActivity {
 
         intentMyService = new Intent(this, MyService.class);
         intentMyService.putExtra("simulationTime", getIntent().getIntExtra("simulationTime", 0));
+        intentMyService.putExtra("distances", getIntent().getIntArrayExtra("distances"));
         service = startService(intentMyService);
 
         txtMessage = (TextView) findViewById(R.id.txt_message);
@@ -51,15 +52,13 @@ public class ServiceDriver extends AppCompatActivity {
         registerReceiver(receiver, mainFilter);
 
         ListView busStopsList = (ListView) findViewById(R.id.busStopsListView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, busStops);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, busStops);
         busStopsList.setAdapter(adapter);
 
         busStopsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AlertDialog.Builder diyalogOlusturucu =
-                        new AlertDialog.Builder(ServiceDriver.this);
-
+                AlertDialog.Builder diyalogOlusturucu = new AlertDialog.Builder(ServiceDriver.this);
                 diyalogOlusturucu.setMessage(busStops[position])
                         .setCancelable(false)
                         .setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
@@ -100,4 +99,3 @@ public class ServiceDriver extends AppCompatActivity {
         return sdf.format(new Date());
     }
 }
-

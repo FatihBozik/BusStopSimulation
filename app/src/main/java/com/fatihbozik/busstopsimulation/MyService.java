@@ -14,6 +14,7 @@ public class MyService extends Service {
     boolean isRunning = true;
     int simulationTime;
     String currentTime;
+    int[] distances;
     int minutes;
 
     @Nullable
@@ -32,6 +33,7 @@ public class MyService extends Service {
         Log.e("MyService", "MyService::onStartCommand()");
 
         simulationTime = intent.getIntExtra("simulationTime", 0);
+        distances = intent.getIntArrayExtra("distances");
         currentTime = getCurrentTime("HH:mm", new Locale("tr"));
         minutes = convertTimeToMinutes(currentTime);
 
@@ -40,9 +42,11 @@ public class MyService extends Service {
                 for (int i = 1; (i <= simulationTime) && isRunning; i++) {
                     try {
                         Thread.sleep(1000);
+                        //distances = updateDistances(distances);
                         currentTime = convertMinutesToTime(++minutes);
                         Intent myResponse = new Intent("fatihbozik.action.MYSERVICE");
                         myResponse.putExtra("serviceData", currentTime);
+                        myResponse.putExtra("distances", distances);
                         sendBroadcast(myResponse);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -77,5 +81,12 @@ public class MyService extends Service {
         int minute = minutes % 60;
 
         return String.format("%02d:%02d", hours, minute);
+    }
+
+    private int[] updateDistances(int[] distances) {
+        for (int i = 0; i < distances.length; i++) {
+            distances[i] -= 50;
+        }
+        return distances;
     }
 }
