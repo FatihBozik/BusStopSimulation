@@ -1,21 +1,21 @@
 package com.fatihbozik.busstopsimulation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Random;
 
 public class StageActivity extends AppCompatActivity {
-    private TextView imaginaryClock;
+    //    private TextView imaginaryClock;
     int busStopsDistances[];
+    int remainTimes[]; // Otobüslerin kaç saniye sonra duraklara varacağını tutacak.
+    int simualationTime = 0;  // Simulasyon kaç saniye sürecek. Servis o kadar çalıştırılacak.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +28,32 @@ public class StageActivity extends AppCompatActivity {
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new TextAdapter(this, busStopsDistances));
 
+        for (int time : remainTimes) simualationTime += time;
+
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Toast.makeText(StageActivity.this, "" + position, Toast.LENGTH_SHORT).show();
             }
         });
+
+        Button startButton = (Button) findViewById(R.id.simulation_button);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent driverActivity = new Intent(StageActivity.this, ServiceDriver.class);
+                driverActivity.putExtra("simulationTime", simualationTime);
+                startActivity(driverActivity);
+            }
+        });
+
+
     }
 
     int[] distanceBetweenStops(int howMany) {
         int[] dizi = generateRandomNumber(howMany, 5);
+        remainTimes = dizi;
 
-        for(int i = 0; i < dizi.length; i++) {
+        for (int i = 0; i < dizi.length; i++) {
             dizi[i] *= 50;
         }
 
@@ -52,24 +67,5 @@ public class StageActivity extends AppCompatActivity {
             dizi[i] = rnd.nextInt(number) + 1; // [1, n] arası rastgele bir sayı üret.
         }
         return dizi;
-    }
-
-    private String getCurrentTime(String pattern, Locale locale) {
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern, locale);
-        return sdf.format(new Date());
-    }
-
-    private int convertTimeToMinutes(String time) {
-        int hours = Integer.parseInt(time.substring(0, 2));
-        int minutes = Integer.parseInt(time.substring(3));
-
-        return (hours * 60) + minutes;
-    }
-
-    private String convertMinutesToTime(int minutes) {
-        int hours = minutes / 60;
-        int minute = minutes % 60;
-
-        return String.format("%02d:%02d", hours, minute);
     }
 }

@@ -15,7 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StageActivity"></activity>
+        <activity android:name=".StageActivity" />
+
+        <service android:name=".MyService" />
+
+        <activity android:name=".ServiceDriver"></activity>
     </application>
 
 </manifest>

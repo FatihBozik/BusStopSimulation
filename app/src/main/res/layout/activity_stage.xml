@@ -7,40 +7,57 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#f1eded"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:background="#dfdcdc"
-            android:gravity="center_horizontal"
-            android:text="Duraklar arası mesafe"
-            android:textColor="@color/colorMain"
-            android:textStyle="bold" />
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/max_bus_count"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Duraklar arası mesafe"
+                android:textColor="@color/colorMain"
+                android:textStyle="bold" />
+        </LinearLayout>
+
 
         <GridView
             android:id="@+id/gridview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:background="#f1eded"
             android:gravity="center_horizontal"
             android:numColumns="2"
             android:stretchMode="columnWidth"
             android:verticalSpacing="10dp" />
+
+
     </LinearLayout>
 
     <Button
         android:id="@+id/simulation_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="72dp"
+        android:layout_height="37dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
         android:background="@color/colorMain"
-        android:text="Simulasyonu Başlat"
-        android:textColor="#ffffff" />
-
-
+        android:text="Başlat"
+        android:textColor="#ffffff"
+        android:textSize="12sp" />
 </LinearLayout>
