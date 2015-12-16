@@ -1,16 +1,23 @@
 package com.fatihbozik.busstopsimulation;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 public class TextAdapter extends BaseAdapter {
     private Context mContext;
     private int[] busStopsDistances;
+    private HashMap<Integer, Integer> kacDakika;
     private int type;
+    Iterator it;
 
     public TextAdapter(Context c, int[] busStopsDistances, int type) {
         mContext = c;
@@ -18,9 +25,19 @@ public class TextAdapter extends BaseAdapter {
         this.type = type;
     }
 
+    public TextAdapter(Context c, HashMap<Integer, Integer> kacDakika, int type) {
+        mContext = c;
+        this.kacDakika = kacDakika;
+        this.type = type;
+        it = kacDakika.entrySet().iterator();
+    }
+
     public int getCount() {
-        if (type == 2) return BusActivity.count;
-        else return busStopsDistances.length;
+        if (type == 2) {
+            return kacDakika.size();
+        } else {
+            return busStopsDistances.length;
+        }
     }
 
     public Object getItem(int position) {
@@ -37,6 +54,9 @@ public class TextAdapter extends BaseAdapter {
         View gridViewItem;
         TextView txt1, txt2;
 
+
+
+
         if (convertView == null) {
             // get layout from row_gridview.xml
             gridViewItem = inflater.inflate(R.layout.row_gridview, null);
@@ -52,19 +72,33 @@ public class TextAdapter extends BaseAdapter {
                 if (busStopsDistances[position] == 0) {
                     txt2.setText("Simulasyon başladığında\n");
                 } else {
-                    txt2.setText("Simulasyon başladıktan\n" + busStopsDistances[position] + " dk sonra");
+                    txt2.setText("Simulasyon başladıktan \n" + busStopsDistances[position] + " dk sonra");
                 }
                 return gridViewItem;
             } else {
-                    if (busStopsDistances[position] != -99) {
-                        txt1.setText("Otobüs" + (position + 1));
-                        txt2.setText(busStopsDistances[position] + " dk sonra");
-                    }
+
+                if (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry)it.next();
+                    txt1.setText("Otobüs" + ((int)pair.getKey() + 1));
+                    txt2.setText(pair.getValue() + " dk sonra");
+                }
+
+//                for (Map.Entry<Integer, Integer> entry : kacDakika) {
+//                    int key = entry.getKey();
+//                    int value = entry.getValue();
+//                }
+//
+//                txt1.setText("Otobüs" + (position + 1));
+//                txt2.setText(kacDakika.get(position) + " dk sonra");
             }
+
+            Log.d("BusActivity::txt1", txt1.getText().toString());
+            Log.d("BusActivity::txt2", txt2.getText().toString());
 
         } else {
             gridViewItem = convertView;
         }
+
         return gridViewItem;
     }
 }

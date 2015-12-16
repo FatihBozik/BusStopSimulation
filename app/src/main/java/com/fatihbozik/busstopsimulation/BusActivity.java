@@ -11,6 +11,8 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 public class BusActivity extends AppCompatActivity {
 
     private Intent intentMyService;
@@ -20,10 +22,8 @@ public class BusActivity extends AppCompatActivity {
     public ListView busStopsList;
     int sumOfDistance;
     int position;
-    int[] kacDakika;
+    HashMap<Integer, Integer> kacDakika;
     GridView gridViewBus;
-    static int count;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,18 +63,13 @@ public class BusActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context localContext, Intent callerIntent) {
             String serviceData = callerIntent.getStringExtra("serviceData");
-            kacDakika = callerIntent.getIntArrayExtra("kacDakika");
-            count = realLength(kacDakika);
-
-            Log.d("BusActivity::Ayraç", "------");
-            for(int i = 0; i < kacDakika.length; i++) {
-                Log.d("BusActivity::Kacdakika", "kacdakika["+i+"]" + ":" + kacDakika[i] + "");
-            }
-            Log.d("BusActivity::Count", count + "");
+            kacDakika = (HashMap<Integer, Integer>)callerIntent.getSerializableExtra("kacDakika");
             gridViewBus.setAdapter(new TextAdapter(BusActivity.this, kacDakika, 2));
             txtMessage.setText(serviceData);
         }
     }
+
+
 
     @Override
     protected void onDestroy() {
@@ -88,15 +83,6 @@ public class BusActivity extends AppCompatActivity {
         Log.e("BusActivity", "Servis durduruldu.\nBroadcast Receiver kaydı silindi.");
     }
 
-    public int realLength(int dizi[]) {
-        int count = 0;
-        for(int i : dizi) {
-            if(i != -99) {
-                count++;
-            }
-        }
-        return count;
-    }
 
 //    private String getCurrentTime(String pattern, Locale locale) {
 //        SimpleDateFormat sdf = new SimpleDateFormat(pattern, locale);

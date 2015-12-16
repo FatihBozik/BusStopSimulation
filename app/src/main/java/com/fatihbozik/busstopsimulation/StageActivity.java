@@ -27,7 +27,7 @@ public class StageActivity extends AppCompatActivity {
         busStopsDistances = distanceBetweenStops(busStopCount - 1);
 
         final int maxBusCount = getIntent().getIntExtra("maxBusCount", 1);
-        final int[] busStartTime  = getIntent().getIntArrayExtra("busStartTime");
+        final int[] busStartTime = getIntent().getIntArrayExtra("busStartTime");
         enBuyuk = getIntent().getIntExtra("enBuyuk", 0);
         final Bundle extras = getIntent().getExtras();
 
@@ -57,9 +57,9 @@ public class StageActivity extends AppCompatActivity {
         remainTimes = new int[dizi.length];
 
         list.add(0, 0);
-        for(int i = 1; i <= dizi.length; i++) {
+        for (int i = 1; i <= dizi.length; i++) {
             int sum = 0;
-            for(int j = 0; j < i; j++) {
+            for (int j = 0; j < i; j++) {
                 sum += dizi[j];
             }
             list.add(i, sum);

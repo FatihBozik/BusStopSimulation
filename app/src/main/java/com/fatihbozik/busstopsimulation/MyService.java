@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class MyService extends Service {
@@ -19,7 +20,8 @@ public class MyService extends Service {
     int maxBusCount;
     int minutes;
     int[] busStartTime;
-    int[] kacDakika;
+    HashMap<Integer, Integer> kacDakika;
+
     int count;
     int position;
 
@@ -50,7 +52,7 @@ public class MyService extends Service {
         }
         
         minutes = convertTimeToMinutes(currentTime);
-        kacDakika = new int[maxBusCount];
+        kacDakika = new HashMap<>();
 
         busStartTime = new int[maxBusCount];
         Bundle extras = intent.getExtras();
@@ -73,6 +75,7 @@ public class MyService extends Service {
                         myResponse.putExtra("serviceData", currentTime);
                         myResponse.putExtra("distances", distances);
                         myResponse.putExtra("kacDakika", kacDakika);
+
                         sendBroadcast(myResponse);
 
                     } catch (InterruptedException e) {
@@ -119,14 +122,13 @@ public class MyService extends Service {
 
     private void fun(int[] busStartTime, int count, int position) {
         int value = StageActivity.list.get(position);
+
         for(int i = 0; i < busStartTime.length; i++) {
             if(busStartTime[i] + value - count >= 0) {
-                kacDakika[i] = busStartTime[i] + value - count;
+                kacDakika.put(i, busStartTime[i] + value - count);
             } else {
-                kacDakika[i] = -99;
+                kacDakika.remove(i);
             }
-
-            Log.d("Kac", "" + kacDakika[i]);
         }
     }
 }
