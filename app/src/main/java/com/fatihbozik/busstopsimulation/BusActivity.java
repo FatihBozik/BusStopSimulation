@@ -7,6 +7,8 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,7 +44,7 @@ public class BusActivity extends AppCompatActivity {
         intentMyService.putExtra("distances", distances);
         intentMyService.putExtra("maxBusCount", getIntent().getIntExtra("maxBusCount", 1));
         position = getIntent().getIntExtra("position", 0); // hangi durağa tıklandı.
-        Bundle extras = getIntent().getExtras();
+        final Bundle extras = getIntent().getExtras();
         intentMyService.putExtras(extras);
         intentMyService.putExtra("position", position);
         startService(intentMyService);
@@ -56,6 +58,42 @@ public class BusActivity extends AppCompatActivity {
         registerReceiver(receiver, mainFilter);
 
         gridViewBus = (GridView) findViewById(R.id.gridviewBus);
+        gridViewBus.setOnItemClickListener(new GridView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Intent i = new Intent(BusActivity.this, BusStopActivity.class);
+                i.putExtra("simulationTime", getIntent().getIntExtra("simulationTime", 0));
+                i.putExtras(extras);
+                i.putExtra("distances", getIntent().getIntArrayExtra("distances"));
+                i.putExtra("maxBusCount", getIntent().getIntExtra("maxBusCount", 1));
+                i.putExtra("position", position);
+                i.putExtra("saat", txtMessage.getText().toString());
+                stopService(intentMyService);
+                unregisterReceiver(receiver);
+                startActivity(i);
+            }
+        });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        intentMyService = new Intent(this, MyService.class);
+        intentMyService.putExtra("simulationTime", getIntent().getIntExtra("simulationTime", 0));
+        intentMyService.putExtra("saat", getIntent().getStringExtra("saat"));
+        intentMyService.putExtra("distances", distances);
+        intentMyService.putExtra("maxBusCount", getIntent().getIntExtra("maxBusCount", 1));
+        position = getIntent().getIntExtra("position", 0); // hangi durağa tıklandı.
+        final Bundle extras = getIntent().getExtras();
+        intentMyService.putExtras(extras);
+        intentMyService.putExtras(extras);
+        intentMyService.putExtra("position", position);
+        startService(intentMyService);
+
+        // register & define filter for local listener
+        IntentFilter mainFilter = new IntentFilter("fatihbozik.action.MYSERVICE");
+        receiver = new MyBroadcastReceiver();
+        registerReceiver(receiver, mainFilter);
     }
 
     // Broadcast Receiver
@@ -63,13 +101,11 @@ public class BusActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context localContext, Intent callerIntent) {
             String serviceData = callerIntent.getStringExtra("serviceData");
-            kacDakika = (HashMap<Integer, Integer>)callerIntent.getSerializableExtra("kacDakika");
+            kacDakika = (HashMap<Integer, Integer>) callerIntent.getSerializableExtra("kacDakika");
             gridViewBus.setAdapter(new TextAdapter(BusActivity.this, kacDakika, 2));
             txtMessage.setText(serviceData);
         }
     }
-
-
 
     @Override
     protected void onDestroy() {
@@ -83,8 +119,7 @@ public class BusActivity extends AppCompatActivity {
         Log.e("BusActivity", "Servis durduruldu.\nBroadcast Receiver kaydı silindi.");
     }
 
-
-//    private String getCurrentTime(String pattern, Locale locale) {
+    //    private String getCurrentTime(String pattern, Locale locale) {
 //        SimpleDateFormat sdf = new SimpleDateFormat(pattern, locale);
 //        return sdf.format(new Date());
 //    }

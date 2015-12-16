@@ -20,7 +20,10 @@ public class MyService extends Service {
     int maxBusCount;
     int minutes;
     int[] busStartTime;
+    int[] list;
     HashMap<Integer, Integer> kacDakika;
+    HashMap<Integer, String> gececegiDuraklar;
+    boolean control;
 
     int count;
     int position;
@@ -44,15 +47,18 @@ public class MyService extends Service {
         distances = intent.getIntArrayExtra("distances");
         maxBusCount = intent.getIntExtra("maxBusCount", 1);
         position = intent.getIntExtra("position", -1);
+        control = intent.getBooleanExtra("busStopActivity", false);
+        list = intent.getIntArrayExtra("list");
 
-        if(position == -1) {
+        if (position == -1) {
             currentTime = getCurrentTime("HH:mm", new Locale("tr"));
         } else {
             currentTime = intent.getStringExtra("saat");
         }
-        
+
         minutes = convertTimeToMinutes(currentTime);
         kacDakika = new HashMap<>();
+        gececegiDuraklar = new HashMap<>();
 
         busStartTime = new int[maxBusCount];
         Bundle extras = intent.getExtras();
@@ -68,13 +74,17 @@ public class MyService extends Service {
                         Thread.sleep(1000);
                         currentTime = convertMinutesToTime(++minutes);
                         count++;
-                        if(position != -1) {
+                        if (position != -1) {
                             fun(busStartTime, count, position);
+                        }
+                        if (control) {
+                            fun2(busStartTime, count, position);
                         }
                         Intent myResponse = new Intent("fatihbozik.action.MYSERVICE");
                         myResponse.putExtra("serviceData", currentTime);
                         myResponse.putExtra("distances", distances);
                         myResponse.putExtra("kacDakika", kacDakika);
+                        myResponse.putExtra("gececegiDuraklar", gececegiDuraklar);
 
                         sendBroadcast(myResponse);
 
@@ -121,13 +131,27 @@ public class MyService extends Service {
 //    }
 
     private void fun(int[] busStartTime, int count, int position) {
-        int value = StageActivity.list.get(position);
+        int value = list[position];
 
-        for(int i = 0; i < busStartTime.length; i++) {
-            if(busStartTime[i] + value - count >= 0) {
+        for (int i = 0; i < busStartTime.length; i++) {
+            if (busStartTime[i] + value - count >= 0) {
                 kacDakika.put(i, busStartTime[i] + value - count);
             } else {
                 kacDakika.remove(i);
+            }
+        }
+    }
+
+    private void fun2(int[] busStartTime, int count, int position) {
+        Log.d("fatihActivity::", "count - busStartTime[position] : " + (count - busStartTime[position]));
+
+        for (int j = 0; j < list.length; j++) {
+            if (count - busStartTime[position] <= list[j]) {
+                gececegiDuraklar.put(j, "Durak" + (j + 1));
+                Log.d("fatihActivity::", "Durak" + (j + 1) + "ya uğrayacak");
+            } else {
+                gececegiDuraklar.remove(j);
+                Log.d("fatihActivity::", "Durak" + (j + 1) + "ya uğradı...");
             }
         }
     }

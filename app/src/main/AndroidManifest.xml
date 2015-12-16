@@ -21,7 +21,8 @@
 
         <activity android:name=".ServiceDriver" />
         <activity android:name=".FirstStageActivity" />
-        <activity android:name=".BusActivity"></activity>
+        <activity android:name=".BusActivity" />
+        <activity android:name=".BusStopActivity"></activity>
     </application>
 
 </manifest>

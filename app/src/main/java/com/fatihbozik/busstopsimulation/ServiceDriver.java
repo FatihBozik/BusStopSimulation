@@ -36,6 +36,7 @@ public class ServiceDriver extends AppCompatActivity {
         intentMyService.putExtra("simulationTime", getIntent().getIntExtra("simulationTime", 0));
         intentMyService.putExtra("distances", getIntent().getIntArrayExtra("distances"));
         intentMyService.putExtra("maxBusCount", getIntent().getIntExtra("maxBusCount", 1));
+        intentMyService.putExtra("list", getIntent().getIntArrayExtra("list"));
         final Bundle extras = getIntent().getExtras();
         intentMyService.putExtras(extras);
         service = startService(intentMyService);

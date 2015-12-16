@@ -11,12 +11,14 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class TextAdapter extends BaseAdapter {
     private Context mContext;
     private int[] busStopsDistances;
     private HashMap<Integer, Integer> kacDakika;
     private int type;
+    Map<Integer, Integer> map;
     Iterator it;
 
     public TextAdapter(Context c, int[] busStopsDistances, int type) {
@@ -29,15 +31,17 @@ public class TextAdapter extends BaseAdapter {
         mContext = c;
         this.kacDakika = kacDakika;
         this.type = type;
+        map = new TreeMap<>(kacDakika);
         it = kacDakika.entrySet().iterator();
     }
 
     public int getCount() {
         if (type == 2) {
-            return kacDakika.size();
+            return map.size();
         } else {
             return busStopsDistances.length;
         }
+
     }
 
     public Object getItem(int position) {
@@ -53,8 +57,6 @@ public class TextAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View gridViewItem;
         TextView txt1, txt2;
-
-
 
 
         if (convertView == null) {
@@ -75,21 +77,13 @@ public class TextAdapter extends BaseAdapter {
                     txt2.setText("Simulasyon başladıktan \n" + busStopsDistances[position] + " dk sonra");
                 }
                 return gridViewItem;
-            } else {
+            } else if (type == 2) {
 
                 if (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry)it.next();
-                    txt1.setText("Otobüs" + ((int)pair.getKey() + 1));
+                    Map.Entry pair = (Map.Entry) it.next();
+                    txt1.setText("Otobüs" + ((int) pair.getKey() + 1));
                     txt2.setText(pair.getValue() + " dk sonra");
                 }
-
-//                for (Map.Entry<Integer, Integer> entry : kacDakika) {
-//                    int key = entry.getKey();
-//                    int value = entry.getValue();
-//                }
-//
-//                txt1.setText("Otobüs" + (position + 1));
-//                txt2.setText(kacDakika.get(position) + " dk sonra");
             }
 
             Log.d("BusActivity::txt1", txt1.getText().toString());

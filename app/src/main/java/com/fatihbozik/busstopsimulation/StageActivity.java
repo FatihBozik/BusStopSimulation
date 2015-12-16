@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class StageActivity extends AppCompatActivity {
@@ -15,16 +14,16 @@ public class StageActivity extends AppCompatActivity {
     int remainTimes[];       // Otobüslerin kaç saniye sonra duraklara varacağını tutacak.
     int simulationTime = 0;  // Simulasyon kaç saniye sürecek. Servis o kadar çalıştırılacak.
     int enBuyuk;
-    public static ArrayList<Integer> list;
+    int[] list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stage);
-
-        list = new ArrayList<>();
         final int busStopCount = getIntent().getIntExtra("busStopCount", 5);
+        list = new int[busStopCount];
         busStopsDistances = distanceBetweenStops(busStopCount - 1);
+
 
         final int maxBusCount = getIntent().getIntExtra("maxBusCount", 1);
         final int[] busStartTime = getIntent().getIntArrayExtra("busStartTime");
@@ -43,9 +42,10 @@ public class StageActivity extends AppCompatActivity {
                 Intent driverActivity = new Intent(StageActivity.this, ServiceDriver.class);
                 driverActivity.putExtra("busStopCount", busStopCount);
                 driverActivity.putExtra("maxBusCount", maxBusCount);
-                driverActivity.putExtra("simulationTime", simulationTime + enBuyuk);
+                driverActivity.putExtra("simulationTime", simulationTime + enBuyuk + 1);
                 driverActivity.putExtra("distances", busStopsDistances);
                 driverActivity.putExtra("busStartTime", busStartTime);
+                driverActivity.putExtra("list", list);
                 driverActivity.putExtras(extras);
                 startActivity(driverActivity);
             }
@@ -56,13 +56,13 @@ public class StageActivity extends AppCompatActivity {
         int[] dizi = generateRandomNumber(howMany, 5);
         remainTimes = new int[dizi.length];
 
-        list.add(0, 0);
+        list[0] = 0;
         for (int i = 1; i <= dizi.length; i++) {
             int sum = 0;
             for (int j = 0; j < i; j++) {
                 sum += dizi[j];
             }
-            list.add(i, sum);
+            list[i] = sum;
         }
 
         System.arraycopy(dizi, 0, remainTimes, 0, dizi.length);
