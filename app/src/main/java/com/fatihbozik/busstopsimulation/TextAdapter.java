@@ -19,7 +19,8 @@ public class TextAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return busStopsDistances.length;
+        if (type == 2) return BusActivity.count;
+        else return busStopsDistances.length;
     }
 
     public Object getItem(int position) {
@@ -44,11 +45,21 @@ public class TextAdapter extends BaseAdapter {
             if (type == 1) {
                 txt1.setText(String.format("%d.Durak ile %d.Durak arası", position + 1, position + 2));
                 txt2.setText(busStopsDistances[position] + " m");
+                return gridViewItem;
             } else if (type == 0) {
                 txt1.setText("Otobüs" + (position + 1));
-                txt2.setText("Simulasyon başladıktan\n" + busStopsDistances[position] + " dk sonra");
-            } else {
 
+                if (busStopsDistances[position] == 0) {
+                    txt2.setText("Simulasyon başladığında\n");
+                } else {
+                    txt2.setText("Simulasyon başladıktan\n" + busStopsDistances[position] + " dk sonra");
+                }
+                return gridViewItem;
+            } else {
+                    if (busStopsDistances[position] != -99) {
+                        txt1.setText("Otobüs" + (position + 1));
+                        txt2.setText(busStopsDistances[position] + " dk sonra");
+                    }
             }
 
         } else {

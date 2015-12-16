@@ -19,7 +19,7 @@ public class FirstStageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_first_stage);
 
         final int maxBusCount = getIntent().getIntExtra("maxBusCount", 1);
-        int[] busStartTime = returnBusStartTime(maxBusCount);
+        final int[] busStartTime = returnBusStartTime(maxBusCount);
         final Bundle extras = new Bundle();
         for(int i = 0; i < maxBusCount; i++) {
             extras.putInt("Otobüs" + (i+1), busStartTime[i]);
@@ -35,6 +35,8 @@ public class FirstStageActivity extends AppCompatActivity {
                 Intent stageActivity = new Intent(FirstStageActivity.this, StageActivity.class);
                 stageActivity.putExtra("busStopCount", getIntent().getIntExtra("busStopCount", 5));
                 stageActivity.putExtra("maxBusCount", maxBusCount);
+                stageActivity.putExtra("enBuyuk", enBuyuk);
+                stageActivity.putExtra("busStartTime", busStartTime);
                 stageActivity.putExtras(extras);
                 startActivity(stageActivity);
             }

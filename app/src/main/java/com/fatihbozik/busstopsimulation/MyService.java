@@ -21,6 +21,7 @@ public class MyService extends Service {
     int[] busStartTime;
     int[] kacDakika;
     int count;
+    int position;
 
     @Nullable
     @Override
@@ -40,7 +41,14 @@ public class MyService extends Service {
         simulationTime = intent.getIntExtra("simulationTime", 0);
         distances = intent.getIntArrayExtra("distances");
         maxBusCount = intent.getIntExtra("maxBusCount", 1);
-        currentTime = getCurrentTime("HH:mm", new Locale("tr"));
+        position = intent.getIntExtra("position", -1);
+
+        if(position == -1) {
+            currentTime = getCurrentTime("HH:mm", new Locale("tr"));
+        } else {
+            currentTime = intent.getStringExtra("saat");
+        }
+        
         minutes = convertTimeToMinutes(currentTime);
         kacDakika = new int[maxBusCount];
 
@@ -48,7 +56,7 @@ public class MyService extends Service {
         Bundle extras = intent.getExtras();
         for (int i = 0; i < maxBusCount; i++) {
             busStartTime[i] = extras.getInt("Otobüs" + (i + 1));
-            Log.d("MyService", "" + busStartTime[i]);
+            Log.d("MyService", "BusStartTime:" + busStartTime[i]);
         }
 
         Thread triggerService = new Thread(new Runnable() {
@@ -58,7 +66,9 @@ public class MyService extends Service {
                         Thread.sleep(1000);
                         currentTime = convertMinutesToTime(++minutes);
                         count++;
-                        fun(busStartTime, count);
+                        if(position != -1) {
+                            fun(busStartTime, count, position);
+                        }
                         Intent myResponse = new Intent("fatihbozik.action.MYSERVICE");
                         myResponse.putExtra("serviceData", currentTime);
                         myResponse.putExtra("distances", distances);
@@ -100,20 +110,23 @@ public class MyService extends Service {
         return String.format("%02d:%02d", hours, minute);
     }
 
-    private int[] updateDistances(int[] distances) {
-        for (int i = 0; i < distances.length; i++) {
-            distances[i] -= 50;
-        }
-        return distances;
-    }
+//    private int[] updateDistances(int[] distances) {
+//        for (int i = 0; i < distances.length; i++) {
+//            distances[i] -= 50;
+//        }
+//        return distances;
+//    }
 
-    private void fun(int[] busStartTime, int count) {
+    private void fun(int[] busStartTime, int count, int position) {
+        int value = StageActivity.list.get(position);
         for(int i = 0; i < busStartTime.length; i++) {
-            if(busStartTime[i] - count > 0) {
-                kacDakika[i] = busStartTime[i] - count;
+            if(busStartTime[i] + value - count >= 0) {
+                kacDakika[i] = busStartTime[i] + value - count;
             } else {
                 kacDakika[i] = -99;
             }
+
+            Log.d("Kac", "" + kacDakika[i]);
         }
     }
 }
