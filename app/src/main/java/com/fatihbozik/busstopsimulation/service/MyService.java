@@ -1,4 +1,4 @@
-package com.fatihbozik.busstopsimulation;
+package com.fatihbozik.busstopsimulation.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -122,13 +122,6 @@ public class MyService extends Service {
 
         return String.format("%02d:%02d", hours, minute);
     }
-
-//    private int[] updateDistances(int[] distances) {
-//        for (int i = 0; i < distances.length; i++) {
-//            distances[i] -= 50;
-//        }
-//        return distances;
-//    }
 
     private void fun(int[] busStartTime, int count, int position) {
         int value = list[position];

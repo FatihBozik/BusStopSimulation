@@ -1,4 +1,4 @@
-package com.fatihbozik.busstopsimulation;
+package com.fatihbozik.busstopsimulation.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -13,6 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.fatihbozik.busstopsimulation.R;
+import com.fatihbozik.busstopsimulation.service.MyService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

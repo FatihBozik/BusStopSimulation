@@ -1,4 +1,4 @@
-package com.fatihbozik.busstopsimulation;
+package com.fatihbozik.busstopsimulation.adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.fatihbozik.busstopsimulation.R;
 
 import java.util.HashMap;
 import java.util.Iterator;

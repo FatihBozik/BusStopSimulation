@@ -1,4 +1,4 @@
-package com.fatihbozik.busstopsimulation;
+package com.fatihbozik.busstopsimulation.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.fatihbozik.busstopsimulation.R;
+import com.fatihbozik.busstopsimulation.adapter.HashMapAdapter;
+import com.fatihbozik.busstopsimulation.service.MyService;
 
 import java.util.HashMap;
 

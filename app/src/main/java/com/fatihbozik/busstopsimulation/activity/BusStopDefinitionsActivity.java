@@ -1,4 +1,4 @@
-package com.fatihbozik.busstopsimulation;
+package com.fatihbozik.busstopsimulation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 
+import com.fatihbozik.busstopsimulation.R;
+import com.fatihbozik.busstopsimulation.adapter.TextAdapter;
+
 import java.util.Random;
 
-public class StageActivity extends AppCompatActivity {
+public class BusStopDefinitionsActivity extends AppCompatActivity {
     int busStopsDistances[];
     int remainTimes[];       // Otobüslerin kaç saniye sonra duraklara varacağını tutacak.
     int simulationTime = 0;  // Simulasyon kaç saniye sürecek. Servis o kadar çalıştırılacak.
@@ -19,7 +22,7 @@ public class StageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stage);
+        setContentView(R.layout.activity_bus_stop_definitions);
         final int busStopCount = getIntent().getIntExtra("busStopCount", 5);
         list = new int[busStopCount];
         busStopsDistances = distanceBetweenStops(busStopCount - 1);
@@ -39,7 +42,7 @@ public class StageActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent driverActivity = new Intent(StageActivity.this, ServiceDriver.class);
+                Intent driverActivity = new Intent(BusStopDefinitionsActivity.this, ServiceDriver.class);
                 driverActivity.putExtra("busStopCount", busStopCount);
                 driverActivity.putExtra("maxBusCount", maxBusCount);
                 driverActivity.putExtra("simulationTime", simulationTime + enBuyuk + 1);

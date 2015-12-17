@@ -1,4 +1,4 @@
-package com.fatihbozik.busstopsimulation;
+package com.fatihbozik.busstopsimulation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.fatihbozik.busstopsimulation.R;
 
 public class MainActivity extends AppCompatActivity {
     private EditText txtMaxBusCount;
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                     maxBusCount = Integer.parseInt(txtMaxBusCount.getText().toString());
                     busStopCount = Integer.parseInt(txtBusStopCount.getText().toString());
 
-                    Intent firstStageActivity = new Intent(MainActivity.this, FirstStageActivity.class);
+                    Intent firstStageActivity = new Intent(MainActivity.this, SchedulesActivity.class);
                     firstStageActivity.putExtra("maxBusCount", maxBusCount);
                     firstStageActivity.putExtra("busStopCount", busStopCount);
                     startActivity(firstStageActivity);

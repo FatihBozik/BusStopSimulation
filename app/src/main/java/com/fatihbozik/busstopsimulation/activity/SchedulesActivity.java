@@ -1,4 +1,4 @@
-package com.fatihbozik.busstopsimulation;
+package com.fatihbozik.busstopsimulation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,22 +7,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 
+import com.fatihbozik.busstopsimulation.R;
+import com.fatihbozik.busstopsimulation.adapter.TextAdapter;
+
 import java.util.Random;
 
-public class FirstStageActivity extends AppCompatActivity {
-    int busStartTime[];
+public class SchedulesActivity extends AppCompatActivity {
     int enBuyuk = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first_stage);
+        setContentView(R.layout.activity_schedules);
 
         final int maxBusCount = getIntent().getIntExtra("maxBusCount", 1);
         final int[] busStartTime = returnBusStartTime(maxBusCount);
         final Bundle extras = new Bundle();
-        for(int i = 0; i < maxBusCount; i++) {
-            extras.putInt("Otobüs" + (i+1), busStartTime[i]);
+        for (int i = 0; i < maxBusCount; i++) {
+            extras.putInt("Otobüs" + (i + 1), busStartTime[i]);
         }
 
         GridView gridview = (GridView) findViewById(R.id.gridview1);
@@ -32,7 +34,7 @@ public class FirstStageActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent stageActivity = new Intent(FirstStageActivity.this, StageActivity.class);
+                Intent stageActivity = new Intent(SchedulesActivity.this, BusStopDefinitionsActivity.class);
                 stageActivity.putExtra("busStopCount", getIntent().getIntExtra("busStopCount", 5));
                 stageActivity.putExtra("maxBusCount", maxBusCount);
                 stageActivity.putExtra("enBuyuk", enBuyuk);

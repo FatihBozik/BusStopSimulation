@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:stretchColumns="1"
-    tools:context="com.fatihbozik.busstopsimulation.MainActivity">
+    tools:context=".activity.MainActivity">
 
     <ImageView
         android:layout_width="225dp"

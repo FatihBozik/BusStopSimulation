@@ -1,4 +1,4 @@
-package com.fatihbozik.busstopsimulation;
+package com.fatihbozik.busstopsimulation.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,22 +7,20 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.fatihbozik.busstopsimulation.R;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class HashMapAdapter extends BaseAdapter {
-
-    private HashMap<Integer, String> mData = new HashMap<>();
     Map<Integer, String> map;
-    private Integer[] mKeys;
     private Context mContext;
     Iterator it;
 
     public HashMapAdapter(Context mContext, HashMap<Integer, String> data) {
         this.mContext = mContext;
-        mData = data;
         map = new TreeMap<>(data);
         it = map.entrySet().iterator();
     }
