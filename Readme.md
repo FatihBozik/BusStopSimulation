@@ -1,7 +1,8 @@
 #Otobüs Durağı Simülasyonu Android Uygulaması
 
-<p align="left"> <img style="float: center;" src="/images/1 activity_main.png" alt="Activity Main" width="auto" height="400"> </p>
-<p align="center"> <img style="float: center;" src="/images/2 activity_schedules.png" alt="Activity Main" width="auto" height="400"> </p> <p align="right"> <img style="float: center;" src="/images/3 activity_bus_stop_definitions.png" alt="Activity Main" width="auto" height="400"> </p>
+<img style="float: left;" src="/images/1 activity_main.png" alt="Activity Main" width="auto" height="400">
+<img style="float: left;" src="/images/2 activity_schedules.png" alt="Activity Main" width="auto" height="400">
+<img style="float: left;" src="/images/3 activity_bus_stop_definitions.png" alt="Activity Main" width="auto" height="400">
 * Uygulamamız basitçe kendi içinde çalışan bir simülasyondur.
 
 * Başlangıç ekranında kullanıcıdan azami otobüs sayısı ve otobüs durağı sayısı olmak üzere `2 tane` başlangıç parametresi alınmaktadır.
