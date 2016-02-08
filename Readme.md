@@ -3,7 +3,9 @@
 <p align="left">
 <img style="float: center;" src="/images/1 activity_main.png" alt="Activity Main" width="auto" height="400">
 </p>
-* Uygulamamız basitçe kendi içinde çalışan bir simülasyondur.
+
+<p align="right">
+* Uygulamamız basitçe kendi içinde çalışan bir simülasyondur.</p>
 
 * Başlangıç ekranında kullanıcıdan azami otobüs sayısı ve otobüs durağı sayısı olmak üzere `2 tane` başlangıç parametresi alınmaktadır.
 
