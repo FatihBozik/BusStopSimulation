@@ -13,6 +13,10 @@
 
 * Otobüslerin izleyecekleri rotalar aynıdır. N durak varsa eğer rotanın her zaman `Durak1, Durak2, ... ,DurakN` şeklinde olacağı kabul ediliyor.
 
+
+<img style="float: left;" src="/images/4 activity_service_driver.png" alt="Activity Main" width="auto" height="500">
+<img style="float: left;" src="/images/5 activity_bus.png" alt="Activity Main" width="auto" height="500">
+<img style="float: left;" src="/images/6 activity_bus_stop" alt="Activity Main" width="auto" height="500">
 * Başla tuşuna basmamızla beraber `MyService` isimli servis başlatılıyor. Servis, butona basıldığı andaki servis saatini alıyor ve her saniye bir dakikaya karşılık gelecek şekilde simulasyon saatini güncelliyorum. Kullanıcı durak listesinden herhangi bir durağa tıklarsa yeni bir aktivite açılıyor. Bu aktivite de aynı servisi kullanarak seçilen durağa gelecek otobüslerin tahmini gelme sürelerini yazan bir listeyi gösteriyor.
 
 * Bu hesaplamayı aşağıdaki kodla yapıyorum.
