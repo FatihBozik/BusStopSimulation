@@ -1,5 +1,7 @@
 #Otobüs Durağı Simülasyonu Android Uygulaması
 
+![Activity Main](/images/1 activity_main.png)
+
 * Uygulamamız basitçe kendi içinde çalışan bir simülasyondur.
 
 * Başlangıç ekranında kullanıcıdan azami otobüs sayısı ve otobüs durağı sayısı olmak üzere `2 tane` başlangıç parametresi alınmaktadır.
