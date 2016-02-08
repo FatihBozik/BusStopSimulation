@@ -1,6 +1,6 @@
 #Otobüs Durağı Simülasyonu Android Uygulaması
 
-![Activity Main](/images/1 activity_main.png)
+<img src="/images/1 activity_main.png" alt="Activity Main" width="auto" height="50">
 
 * Uygulamamız basitçe kendi içinde çalışan bir simülasyondur.
 
