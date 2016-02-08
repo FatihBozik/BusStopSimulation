@@ -1,8 +1,8 @@
 #Otobüs Durağı Simülasyonu Android Uygulaması
 
-<img style="float: left;" src="/images/1 activity_main.png" alt="Activity Main" width="auto" height="500">
-<img style="float: left;" src="/images/2 activity_schedules.png" alt="Activity Main" width="auto" height="500">
-<img style="float: left;" src="/images/3 activity_bus_stop_definitions.png" alt="Activity Main" width="auto" height="500">
+<img style="float: left;" src="/images/1 activity_main.png" alt="activity_main" width="auto" height="500">
+<img style="float: left;" src="/images/2 activity_schedules.png" alt="activity_schedules" width="auto" height="500">
+<img style="float: left;" src="/images/3 activity_bus_stop_definitions.png" alt="activity_bus_stop_definitions" width="auto" height="500">
 * Uygulamamız basitçe kendi içinde çalışan bir simülasyondur.
 
 * Başlangıç ekranında kullanıcıdan azami otobüs sayısı ve otobüs durağı sayısı olmak üzere `2 tane` başlangıç parametresi alınmaktadır.
@@ -13,10 +13,10 @@
 
 * Otobüslerin izleyecekleri rotalar aynıdır. N durak varsa eğer rotanın her zaman `Durak1, Durak2, ... ,DurakN` şeklinde olacağı kabul ediliyor.
 
+<img style="float: left;" src="/images/4 activity_service_driver.png" alt="activity_service_driver" width="auto" height="500">
+<img style="float: left;" src="/images/5 activity_bus.png" alt="activity_bus" width="auto" height="500">
+<img style="float: left;" src="/images/6 activity_bus_stop.png" alt="activity_bus_stop" width="auto" height="500">
 
-<img style="float: left;" src="/images/4 activity_service_driver.png" alt="Activity Main" width="auto" height="500">
-<img style="float: left;" src="/images/5 activity_bus.png" alt="Activity Main" width="auto" height="500">
-<img style="float: left;" src="/images/6 activity_bus_stop" alt="Activity Main" width="auto" height="500">
 * Başla tuşuna basmamızla beraber `MyService` isimli servis başlatılıyor. Servis, butona basıldığı andaki servis saatini alıyor ve her saniye bir dakikaya karşılık gelecek şekilde simulasyon saatini güncelliyorum. Kullanıcı durak listesinden herhangi bir durağa tıklarsa yeni bir aktivite açılıyor. Bu aktivite de aynı servisi kullanarak seçilen durağa gelecek otobüslerin tahmini gelme sürelerini yazan bir listeyi gösteriyor.
 
 * Bu hesaplamayı aşağıdaki kodla yapıyorum.
