@@ -1,4 +1,4 @@
-#Otobüs Durağı Simülasyonu Android Uygulaması
+# Otobüs Durağı Simülasyonu Android Uygulaması
 
 <img style="float: left;" src="/images/1 activity_main.png" alt="activity_main" width="auto" height="500">
 <img style="float: left;" src="/images/2 activity_schedules.png" alt="activity_schedules" width="auto" height="500">
