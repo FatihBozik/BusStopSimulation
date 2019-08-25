@@ -1,5 +1,9 @@
 # Otobüs Durağı Simülasyonu Android Uygulaması
 
+![Licence](https://img.shields.io/github/license/FatihBozik/bus-stop-simulation?style=flat-square)
+
+<br/>
+
 <img style="float: left;" src="/images/1 activity_main.png" alt="activity_main" width="auto" height="500">
 <img style="float: left;" src="/images/2 activity_schedules.png" alt="activity_schedules" width="auto" height="500">
 <img style="float: left;" src="/images/3 activity_bus_stop_definitions.png" alt="activity_bus_stop_definitions" width="auto" height="500">
