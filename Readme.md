@@ -38,17 +38,17 @@
     **count &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Simulasyon başladığından itibaren kaç dakika geçmiş onun bilgisini tutuyor. <br/>
 
 * Otobüse tıklandığında ise aşağıdaki hesaplama ile hangi duraklara uğrayacağını tespit etmiş oluyorum.
-       ```java
-       if (count - busStartTime[position] <= list[j]) {
-            gececegiDuraklar.put(j, "Durak" + (j + 1));
-       } else {
-            gececegiDuraklar.remove(j);
-       }
-       ```
+  ```java
+  if (count - busStartTime[position] <= list[j]) {
+       gececegiDuraklar.put(j, "Durak" + (j + 1));
+  } else {
+       gececegiDuraklar.remove(j);
+  }
+  ```
        
-       **count :** Simulasyon başladığından itibaren kaç dakika geçmiş onun bilgisini tutuyor. <br/>
-       **list[i] &nbsp;:** İlk duraktan kalkan bir otobüsün kaç dakika sonra i. indisli durağa varacağını tutuyor. <br/>
-       **busStartTime[position] :** Seçilen otobüs için simulasyon başladıktan kaç dakika sonra sefere başlayacağı bilgisini tutan bir tamsayı. <br/>
+  **count :** Simulasyon başladığından itibaren kaç dakika geçmiş onun bilgisini tutuyor. <br/>
+  **list[i] &nbsp;:** İlk duraktan kalkan bir otobüsün kaç dakika sonra i. indisli durağa varacağını tutuyor. <br/>
+  **busStartTime[position] :** Seçilen otobüs için simulasyon başladıktan kaç dakika sonra sefere başlayacağı bilgisini tutan bir tamsayı. <br/>
        
 ## Kullanılan Veri Yapıları
 
@@ -60,8 +60,8 @@
 
 * `MyService` sınıfı, `BusActivity`, `BusStopActivity` ve `ServiceDriver` sınıflarıma Broadcast mesajı gönderiyor. Bunun için kullandığım intent-filter şu şekilde :
 
-       ```java
-       IntentFilter mainFilter = new IntentFilter("fatihbozik.action.MYSERVICE");
-       receiver = new MyBroadcastReceiver();
-       registerReceiver(receiver, mainFilter);
-       ```
+   ```java
+   IntentFilter mainFilter = new IntentFilter("fatihbozik.action.MYSERVICE");
+   receiver = new MyBroadcastReceiver();
+   registerReceiver(receiver, mainFilter);
+   ```
